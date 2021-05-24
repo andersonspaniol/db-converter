@@ -12,11 +12,15 @@ public class Parameters {
     private String sourcePort = "";
     private String sourceDatabase = "";
     private String sourceSchema = "";
+    private String sourceUser = "";
+    private String sourcePassword = "";
     private String targetDbms = "";
     private String targetHostname = "";
     private String targetPort = "";
     private String targetDatabase = "";
     private String targetSchema = "";
+    private String targetUser = "";
+    private String targetPassword = "";
 
     private Parameters() {
     }
@@ -40,6 +44,12 @@ public class Parameters {
                 if (arg.startsWith("--source-schema=")) {
                     sourceSchema = arg.split("=")[1];
                 }
+                if (arg.startsWith("--source-user=")) {
+                    sourceUser = arg.split("=")[1];
+                }
+                if (arg.startsWith("--source-password=")) {
+                    sourcePassword = arg.split("=")[1];
+                }
                 if (arg.startsWith("--target-dbms=")) {
                     targetDbms = arg.split("=")[1];
                 }
@@ -54,6 +64,12 @@ public class Parameters {
                 }
                 if (arg.startsWith("--target-schema=")) {
                     targetSchema = arg.split("=")[1];
+                }
+                if (arg.startsWith("--target-user=")) {
+                    targetUser = arg.split("=")[1];
+                }
+                if (arg.startsWith("--target-passsword=")) {
+                    targetPassword = arg.split("=")[1];
                 }
             }
         } catch (Exception e) {
@@ -82,6 +98,14 @@ public class Parameters {
         return sourceSchema;
     }
 
+    public String getSourceUser() {
+        return sourceUser;
+    }
+
+    public String getSourcePassword() {
+        return sourcePassword;
+    }
+
     public String getTargetDbms() {
         return targetDbms;
     }
@@ -100,6 +124,14 @@ public class Parameters {
 
     public String getTargetSchema() {
         return targetSchema;
+    }
+
+    public String getTargetUser() {
+        return targetUser;
+    }
+
+    public String getTargetPassword() {
+        return targetPassword;
     }
 
     public static Parameters def() {
