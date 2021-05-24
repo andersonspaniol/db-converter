@@ -1,7 +1,7 @@
 package dbconverter;
 
 /**
- * Main class to execute the DB Converter by command line
+ * Main class to execute the DB Converter from command line
  * 
  * @author Anderson Spaniol
  */
