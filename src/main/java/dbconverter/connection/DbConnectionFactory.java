@@ -21,7 +21,7 @@ public class DbConnectionFactory {
              return new DbConnectionMariaDB(hostname, port, database, schema, user, password);
          }
          if (dbms.equals("postgresql")) {
-             return new DbConnectionMariaDB(hostname, port, database, schema, user, password);
+             return new DbConnectionPostgreSQL(hostname, port, database, schema, user, password);
          }
          throw new SQLException("Undefined or unrecognized DBMS name: " + dbms);
     }
