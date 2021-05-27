@@ -1,6 +1,6 @@
 package dbconverter.reader;
 
-import dbconverter.connection.DbConnection;
+import dbconverter.connection.DBConnection;
 import java.sql.SQLException;
 
 /**
@@ -10,7 +10,7 @@ import java.sql.SQLException;
  */
 public class DBReaderFactory {
 
-    public static DBReader newReader(String dbms, DbConnection dbConnection) throws SQLException {
+    public static DBReader newReader(String dbms, DBConnection dbConnection) throws SQLException {
         if (dbms.equals("mariadb")) {
             return new DBReaderMariaDB(dbConnection);
         }

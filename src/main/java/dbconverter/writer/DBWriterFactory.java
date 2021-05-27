@@ -1,6 +1,6 @@
 package dbconverter.writer;
 
-import dbconverter.connection.DbConnection;
+import dbconverter.connection.DBConnection;
 import java.sql.SQLException;
 
 /**
@@ -10,7 +10,7 @@ import java.sql.SQLException;
  */
 public class DBWriterFactory {
 
-    public static DBWriter newWriter(String dbms, DbConnection dbConnection) throws SQLException {
+    public static DBWriter newWriter(String dbms, DBConnection dbConnection) throws SQLException {
         if (dbms.equals("mariadb")) {
             return new DBWriterMariaDB(dbConnection);
         }

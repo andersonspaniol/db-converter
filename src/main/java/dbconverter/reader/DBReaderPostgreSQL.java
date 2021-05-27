@@ -1,6 +1,6 @@
 package dbconverter.reader;
 
-import dbconverter.connection.DbConnection;
+import dbconverter.connection.DBConnection;
 import dbconverter.datatypes.TableRecord;
 import dbconverter.datatypes.TableStructure;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.stream.Stream;
  */
 public class DBReaderPostgreSQL extends DBReader {
 
-    protected DBReaderPostgreSQL(DbConnection dbConnection) {
+    protected DBReaderPostgreSQL(DBConnection dbConnection) {
         super(dbConnection);
     }
 

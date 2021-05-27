@@ -1,7 +1,7 @@
 package dbconverter;
 
-import dbconverter.connection.DbConnection;
-import dbconverter.connection.DbConnectionFactory;
+import dbconverter.connection.DBConnection;
+import dbconverter.connection.DBConnectionFactory;
 import dbconverter.orchestration.Orchestrator;
 import dbconverter.params.Parameters;
 import dbconverter.params.ParametersParsingException;
@@ -31,7 +31,7 @@ public class DbConverter {
             String sourceSchema = Parameters.def().getSourceSchema();
             String sourceUser = Parameters.def().getSourceUser();
             String sourcePassword = Parameters.def().getSourcePassword();
-            DbConnection sourceConnection = DbConnectionFactory.newConnection(sourceDbms, sourceHostname, sourcePort, sourceDatabase, sourceSchema, sourceUser, sourcePassword);
+            DBConnection sourceConnection = DBConnectionFactory.newConnection(sourceDbms, sourceHostname, sourcePort, sourceDatabase, sourceSchema, sourceUser, sourcePassword);
             // Create a reader to source database
             DBReader sourceReader = DBReaderFactory.newReader(sourceDbms, sourceConnection);
             // Create a connection to target database
@@ -42,7 +42,7 @@ public class DbConverter {
             String targetSchema = Parameters.def().getTargetSchema();
             String targetUser = Parameters.def().getTargetUser();
             String targetPassword = Parameters.def().getTargetPassword();
-            DbConnection targetConnection = DbConnectionFactory.newConnection(targetDbms, targetHostname, targetPort, targetDatabase, targetSchema, targetUser, targetPassword);
+            DBConnection targetConnection = DBConnectionFactory.newConnection(targetDbms, targetHostname, targetPort, targetDatabase, targetSchema, targetUser, targetPassword);
             // Create a writer to target database
             DBWriter targetWriter = DBWriterFactory.newWriter(targetDbms, targetConnection);
             // Create an orchestrator that performs the processing

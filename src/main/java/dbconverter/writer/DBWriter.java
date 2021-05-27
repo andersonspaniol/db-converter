@@ -1,6 +1,6 @@
 package dbconverter.writer;
 
-import dbconverter.connection.DbConnection;
+import dbconverter.connection.DBConnection;
 import dbconverter.datatypes.TableRecord;
 import dbconverter.datatypes.TableStructure;
 
@@ -11,9 +11,9 @@ import dbconverter.datatypes.TableStructure;
  */
 public abstract class DBWriter {
 
-    private final DbConnection dbConnection;
+    private final DBConnection dbConnection;
 
-    protected DBWriter(DbConnection dbConnection) {
+    protected DBWriter(DBConnection dbConnection) {
         this.dbConnection = dbConnection;
     }
 

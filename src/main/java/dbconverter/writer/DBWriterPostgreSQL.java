@@ -1,6 +1,6 @@
 package dbconverter.writer;
 
-import dbconverter.connection.DbConnection;
+import dbconverter.connection.DBConnection;
 import dbconverter.datatypes.TableRecord;
 import dbconverter.datatypes.TableStructure;
 
@@ -11,7 +11,7 @@ import dbconverter.datatypes.TableStructure;
  */
 public class DBWriterPostgreSQL extends DBWriter {
 
-    protected DBWriterPostgreSQL(DbConnection dbConnection) {
+    protected DBWriterPostgreSQL(DBConnection dbConnection) {
         super(dbConnection);
     }
 

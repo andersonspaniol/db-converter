@@ -4,6 +4,7 @@ import dbconverter.datatypes.TableRecord;
 import dbconverter.datatypes.TableStructure;
 import dbconverter.reader.DBReader;
 import dbconverter.writer.DBWriter;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -22,11 +23,11 @@ public class Orchestrator {
         this.targetWriter = targetWriter;
     }
 
-    public void process() {
+    public void process() throws SQLException {
         processTables();
     }
 
-    private void processTables() {
+    private void processTables() throws SQLException, SQLException {
         List<String> tableNames = sourceReader.getTableNames();
         for (String tableName : tableNames) {
             // Copy the table structure
