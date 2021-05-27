@@ -1,6 +1,6 @@
 package dbconverter.writer;
 
-import dbconverter.connection.DbConnection;
+import dbconverter.connection.DBConnection;
 import dbconverter.datatypes.TableRecord;
 import dbconverter.datatypes.TableStructure;
 
@@ -11,7 +11,7 @@ import dbconverter.datatypes.TableStructure;
  */
 public class DBWriterMariaDB extends DBWriter {
 
-    protected DBWriterMariaDB(DbConnection dbConnection) {
+    protected DBWriterMariaDB(DBConnection dbConnection) {
         super(dbConnection);
     }
 
