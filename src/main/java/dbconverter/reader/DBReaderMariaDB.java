@@ -33,6 +33,8 @@ public class DBReaderMariaDB extends DBReader {
             String tableName = resultSet.getString(1);
             tableNames.add(tableName);
         }
+        resultSet.close();
+        preparedStatement.close();
         return tableNames;
     }
 

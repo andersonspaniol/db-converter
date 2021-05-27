@@ -3,7 +3,6 @@ package dbconverter.reader;
 import dbconverter.connection.DBConnection;
 import dbconverter.datatypes.TableRecord;
 import dbconverter.datatypes.TableStructure;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Stream;
