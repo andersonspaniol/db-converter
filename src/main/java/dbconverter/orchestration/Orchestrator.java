@@ -1,7 +1,11 @@
 package dbconverter.orchestration;
 
+import dbconverter.datatypes.TableRecord;
+import dbconverter.datatypes.TableStructure;
 import dbconverter.reader.DBReader;
 import dbconverter.writer.DBWriter;
+import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Class that orchestrate all the processing
@@ -23,7 +27,16 @@ public class Orchestrator {
     }
 
     private void processTables() {
-        // Implement here the logic
+        List<String> tableNames = sourceReader.getTableNames();
+        for (String tableName : tableNames) {
+            // Copy the table structure
+            TableStructure tableStructure = sourceReader.getTableStructure(tableName);
+            targetWriter.createTable(tableStructure);
+            // Copy table records
+            Stream<TableRecord> tableRecords = sourceReader.getTableRecords(tableName);
+            tableRecords.forEach(targetWriter::insertTableRecord);
+            targetWriter.flushTableRecords();
+        }
     }
 
 }
