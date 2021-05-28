@@ -26,8 +26,17 @@ public abstract class DBReader {
 
     public abstract List<String> getTableNames() throws SQLException ;
 
-    public abstract TableStructure getTableStructure(String tableName) throws SQLException ;
+    public TableStructure getTableStructure(String tableName) throws SQLException {
+        TableStructure tableStructure = new TableStructure(tableName);
+        loadTableColumns(tableStructure);
+        loadTableIndexes(tableStructure);
+        return tableStructure;
+    }
     
+    protected abstract void loadTableColumns(TableStructure tableStructure) throws SQLException ;
+    
+    protected abstract void loadTableIndexes(TableStructure tableStructure) throws SQLException ;
+
     public abstract Stream<TableRecord> getTableRecords(String tableName) throws SQLException ;
 
 }

@@ -23,7 +23,12 @@ public class DBReaderPostgreSQL extends DBReader {
     }
 
     @Override
-    public TableStructure getTableStructure(String tableName) {
+    protected void loadTableColumns(TableStructure tableStructure) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    protected void loadTableIndexes(TableStructure tableStructure) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
