@@ -1,6 +1,7 @@
 package dbconverter.reader;
 
 import dbconverter.connection.DBConnection;
+import dbconverter.datatypes.DataType;
 import dbconverter.datatypes.IndexColumn;
 import dbconverter.datatypes.TableColumn;
 import dbconverter.datatypes.TableIndex;
@@ -21,6 +22,12 @@ import java.util.stream.Stream;
  */
 public class DBReaderMariaDB extends DBReader {
 
+    protected static final int LENGTH_TINYINT = 2;
+    protected static final int LENGTH_SMALLINT = 4;
+    protected static final int LENGTH_MEDIUMINT = 6;
+    protected static final int LENGTH_INT = 9;
+    protected static final int LENGTH_BIGINT = 18;
+    
     protected DBReaderMariaDB(DBConnection dbConnection) {
         super(dbConnection);
     }
@@ -69,9 +76,70 @@ public class DBReaderMariaDB extends DBReader {
         preparedStatement.close();
     }
 
-    protected TableColumn createTableColumn(String columnName, String dataType, int characterMaximumLength, int numericPrecision, int numericScale) {
-        // Implement logic here and implement unit test
-        return new TableColumn();
+    protected TableColumn createTableColumn(String columnName, String dataTypeStr, int characterMaximumLength, int numericPrecision, int numericScale) throws SQLException {
+        DataType dataType = null;
+        int lenght = -1;
+        int scale = 0;
+        switch (dataTypeStr) {
+            case "char":
+                dataType = DataType.CHAR;
+                break;
+            case "varchar":
+                dataType = DataType.VARCHAR;
+                break;
+            case "decimal":
+                dataType = DataType.DECIMAL;
+                break;
+            case "tinyint":
+                dataType = DataType.INTEGER;
+                lenght = LENGTH_TINYINT;
+                break;
+            case "smallint":
+                dataType = DataType.INTEGER;
+                lenght = LENGTH_SMALLINT;
+                break;
+            case "mediumint":
+                dataType = DataType.INTEGER;
+                lenght = LENGTH_MEDIUMINT;
+                break;
+            case "int":
+                dataType = DataType.INTEGER;
+                lenght = LENGTH_INT;
+                break;
+            case "bigint":
+                dataType = DataType.INTEGER;
+                lenght = LENGTH_BIGINT;
+                break;
+            case "date":
+                dataType = DataType.DATE;
+                lenght = 0;
+                break;
+            case "tinyblob":
+                dataType = DataType.BINARY;
+                break;
+            case "blob":
+                dataType = DataType.BINARY;
+                break;
+            case "longblob":
+                dataType = DataType.BINARY;
+                break;
+            default:
+                throw new SQLException("Unknown data! Column name: " + columnName);
+        }
+        if (dataType == DataType.CHAR || dataType == DataType.VARCHAR || dataType == DataType.BINARY) {
+            lenght = characterMaximumLength;
+        }
+        if (dataType == DataType.DECIMAL) {
+            lenght = numericPrecision;
+            scale = numericScale;
+            if (scale == 0) {
+                dataType = DataType.INTEGER;
+            }
+        }
+        if (lenght < 0) {
+            throw new SQLException("Undefined length! Column name: " + columnName);
+        }
+        return new TableColumn(columnName, dataType, lenght, scale);
     }
     
     @Override
@@ -92,9 +160,10 @@ public class DBReaderMariaDB extends DBReader {
             String indexName = resultSet.getString(1);
             String columnName = resultSet.getString(2);
             int subpart = resultSet.getInt(3);
+            boolean primaryKey = indexName.equalsIgnoreCase("primary");
             boolean nonUnique = resultSet.getBoolean(4);
             if (!previousIndexName.equals(indexName)) {
-                tableIndex = new TableIndex(indexName, nonUnique);
+                tableIndex = new TableIndex(indexName, primaryKey, nonUnique);
                 tableStructure.addIndex(tableIndex);
             }
             IndexColumn indexColumn = createIndexColumn(columnName, subpart);
@@ -105,12 +174,18 @@ public class DBReaderMariaDB extends DBReader {
     }
 
     protected IndexColumn createIndexColumn(String columnName, int subpart) {
-        // Implement logic here and implement unit test
         return new IndexColumn(columnName, subpart);
     }
 
     @Override
     public Stream<TableRecord> getTableRecords(String tableName) {
+//        final int recordsCount = 10;
+//        return Stream.generate(new Supplier<TableRecord>() {
+//            @Override
+//            public TableRecord get() {
+//                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//            }
+//        }).limit(recordsCount);
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

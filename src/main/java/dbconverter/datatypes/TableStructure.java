@@ -32,4 +32,9 @@ public class TableStructure {
         indexes.add(tableIndex);
     }
 
+    @Override
+    public String toString() {
+        return "TableStructure{" + "tableName=" + tableName + ", columns=" + columns + ", indexes=" + indexes + '}';
+    }
+
 }
