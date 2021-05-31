@@ -5,6 +5,7 @@
  */
 package dbconverter.reader;
 
+import dbconverter.contants.MariaDBConstants;
 import dbconverter.datatypes.DataType;
 import dbconverter.datatypes.IndexColumn;
 import dbconverter.datatypes.TableColumn;
@@ -91,23 +92,23 @@ public class DBReaderMariaDBTest {
         result = instance.createTableColumn("test_123", "decimal", 0, 5, 2);
         assertEquals(expResult, result);
         // Test: tinyint
-        expResult = new TableColumn("test_123", DataType.INTEGER, DBReaderMariaDB.LENGTH_TINYINT, 0);
+        expResult = new TableColumn("test_123", DataType.INTEGER, MariaDBConstants.LENGTH_TINYINT, 0);
         result = instance.createTableColumn("test_123", "tinyint", 0, 0, 0);
         assertEquals(expResult, result);
         // Test: smallint
-        expResult = new TableColumn("test_123", DataType.INTEGER, DBReaderMariaDB.LENGTH_SMALLINT, 0);
+        expResult = new TableColumn("test_123", DataType.INTEGER, MariaDBConstants.LENGTH_SMALLINT, 0);
         result = instance.createTableColumn("test_123", "smallint", 0, 0, 0);
         assertEquals(expResult, result);
         // Test: mediumint
-        expResult = new TableColumn("test_123", DataType.INTEGER, DBReaderMariaDB.LENGTH_MEDIUMINT, 0);
+        expResult = new TableColumn("test_123", DataType.INTEGER, MariaDBConstants.LENGTH_MEDIUMINT, 0);
         result = instance.createTableColumn("test_123", "mediumint", 0, 0, 0);
         assertEquals(expResult, result);
         // Test: int
-        expResult = new TableColumn("test_123", DataType.INTEGER, DBReaderMariaDB.LENGTH_INT, 0);
+        expResult = new TableColumn("test_123", DataType.INTEGER, MariaDBConstants.LENGTH_INT, 0);
         result = instance.createTableColumn("test_123", "int", 0, 0, 0);
         assertEquals(expResult, result);
         // Test: bigint
-        expResult = new TableColumn("test_123", DataType.INTEGER, DBReaderMariaDB.LENGTH_BIGINT, 0);
+        expResult = new TableColumn("test_123", DataType.INTEGER, MariaDBConstants.LENGTH_BIGINT, 0);
         result = instance.createTableColumn("test_123", "bigint", 0, 0, 0);
         assertEquals(expResult, result);
         // Test: date
