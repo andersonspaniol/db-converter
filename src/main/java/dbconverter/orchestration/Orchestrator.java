@@ -32,6 +32,7 @@ public class Orchestrator {
         for (String tableName : tableNames) {
             // Copy the table structure
             TableStructure tableStructure = sourceReader.getTableStructure(tableName);
+            targetWriter.dropTableIfExists(tableStructure);
             targetWriter.createTable(tableStructure);
             // Copy table records
             Stream<TableRecord> tableRecords = sourceReader.getTableRecords(tableName);

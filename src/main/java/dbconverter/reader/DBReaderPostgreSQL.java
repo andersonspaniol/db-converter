@@ -13,6 +13,10 @@ import java.util.stream.Stream;
  */
 public class DBReaderPostgreSQL extends DBReader {
 
+    public static final int LENGTH_SMALLINT = 4;
+    public static final int LENGTH_INTEGER = 9;
+    public static final int LENGTH_BIGINT = 18;
+
     protected DBReaderPostgreSQL(DBConnection dbConnection) {
         super(dbConnection);
     }
