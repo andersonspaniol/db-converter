@@ -1,6 +1,7 @@
 package dbconverter.reader;
 
 import dbconverter.connection.DBConnection;
+import dbconverter.contants.MariaDBConstants;
 import dbconverter.datatypes.DataType;
 import dbconverter.datatypes.IndexColumn;
 import dbconverter.datatypes.TableColumn;
@@ -22,12 +23,6 @@ import java.util.stream.Stream;
  */
 public class DBReaderMariaDB extends DBReader {
 
-    protected static final int LENGTH_TINYINT = 2;
-    protected static final int LENGTH_SMALLINT = 4;
-    protected static final int LENGTH_MEDIUMINT = 6;
-    protected static final int LENGTH_INT = 9;
-    protected static final int LENGTH_BIGINT = 18;
-    
     protected DBReaderMariaDB(DBConnection dbConnection) {
         super(dbConnection);
     }
@@ -92,23 +87,23 @@ public class DBReaderMariaDB extends DBReader {
                 break;
             case "tinyint":
                 dataType = DataType.INTEGER;
-                lenght = LENGTH_TINYINT;
+                lenght = MariaDBConstants.LENGTH_TINYINT;
                 break;
             case "smallint":
                 dataType = DataType.INTEGER;
-                lenght = LENGTH_SMALLINT;
+                lenght = MariaDBConstants.LENGTH_SMALLINT;
                 break;
             case "mediumint":
                 dataType = DataType.INTEGER;
-                lenght = LENGTH_MEDIUMINT;
+                lenght = MariaDBConstants.LENGTH_MEDIUMINT;
                 break;
             case "int":
                 dataType = DataType.INTEGER;
-                lenght = LENGTH_INT;
+                lenght = MariaDBConstants.LENGTH_INT;
                 break;
             case "bigint":
                 dataType = DataType.INTEGER;
-                lenght = LENGTH_BIGINT;
+                lenght = MariaDBConstants.LENGTH_BIGINT;
                 break;
             case "date":
                 dataType = DataType.DATE;

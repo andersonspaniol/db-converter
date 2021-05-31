@@ -1,9 +1,9 @@
 package dbconverter.writer;
 
 import dbconverter.connection.DBConnection;
+import dbconverter.contants.PostgreSQLConstants;
 import dbconverter.datatypes.TableColumn;
 import dbconverter.datatypes.TableRecord;
-import dbconverter.reader.DBReaderPostgreSQL;
 
 /**
  * Class that represents a writer to target database - PostgreSQL
@@ -19,11 +19,11 @@ public class DBWriterPostgreSQL extends DBWriter {
     @Override
     protected String getSqlColumnTypeInteger(TableColumn tableColumn) {
         long length = tableColumn.getLenght();
-        if (length <= DBReaderPostgreSQL.LENGTH_SMALLINT) {
+        if (length <= PostgreSQLConstants.LENGTH_SMALLINT) {
             return "smallint";
-        } else if (length <= DBReaderPostgreSQL.LENGTH_INTEGER) {
+        } else if (length <= PostgreSQLConstants.LENGTH_INTEGER) {
             return "integer";
-        } else if (length <= DBReaderPostgreSQL.LENGTH_BIGINT) {
+        } else if (length <= PostgreSQLConstants.LENGTH_BIGINT) {
             return "bigint";
         } else {
             return "numeric(" + length + ")";
