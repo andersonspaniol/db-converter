@@ -24,8 +24,16 @@ public class TableStructure {
         return tableName;
     }
 
+    public List<TableColumn> getColumns() {
+        return columns;
+    }
+
     public void addColumn(TableColumn tableColumn) {
         columns.add(tableColumn);
+    }
+
+    public List<TableIndex> getIndexes() {
+        return indexes;
     }
 
     public void addIndex(TableIndex tableIndex) {
