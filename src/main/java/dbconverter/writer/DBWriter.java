@@ -45,7 +45,7 @@ public abstract class DBWriter {
         }
     }
     
-    private String getSqlCreateColumn(TableColumn tableColumn) {
+    protected String getSqlCreateColumn(TableColumn tableColumn) {
         return tableColumn.getColumnName() + " " + getSqlColumnType(tableColumn);
     }
     

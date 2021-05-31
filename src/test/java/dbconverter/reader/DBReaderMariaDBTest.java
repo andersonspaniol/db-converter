@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dbconverter.reader;
 
 import dbconverter.contants.MariaDBConstants;
@@ -50,7 +45,6 @@ public class DBReaderMariaDBTest {
     @Test
     public void testGetTableNames() throws Exception {
         System.out.println("getTableNames");
-        assertTrue(true);
     }
 
     /**
@@ -61,7 +55,6 @@ public class DBReaderMariaDBTest {
     @Test
     public void testLoadTableColumns() throws Exception {
         System.out.println("loadTableColumns");
-        assertTrue(true);
     }
 
     /**
@@ -137,7 +130,6 @@ public class DBReaderMariaDBTest {
     @Test
     public void testLoadTableIndexes() throws Exception {
         System.out.println("loadTableIndexes");
-        assertTrue(true);
     }
 
     /**
@@ -163,7 +155,6 @@ public class DBReaderMariaDBTest {
     @Test
     public void testGetTableRecords() {
         System.out.println("getTableRecords");
-        assertTrue(true);
     }
 
 }
