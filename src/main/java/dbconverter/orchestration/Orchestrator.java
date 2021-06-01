@@ -30,7 +30,7 @@ public class Orchestrator {
     private void processTables() throws SQLException, SQLException {
         List<String> tableNames = sourceReader.getTableNames();
         for (String tableName : tableNames) {
-            // Copy the table structure
+            // Create tables, without any constraint
             TableStructure tableStructure = sourceReader.getTableStructure(tableName);
             targetWriter.dropTableIfExists(tableStructure);
             targetWriter.createTable(tableStructure);
@@ -38,6 +38,9 @@ public class Orchestrator {
             Stream<TableRecord> tableRecords = sourceReader.getTableRecords(tableName);
             tableRecords.forEach(targetWriter::insertTableRecord);
             targetWriter.flushTableRecords();
+            // Create tables constraints
+            targetWriter.createTablePrimaryKeys();
+            targetWriter.createTableConstraints();
         }
     }
 

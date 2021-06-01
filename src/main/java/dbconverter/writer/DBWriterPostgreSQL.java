@@ -4,6 +4,7 @@ import dbconverter.connection.DBConnection;
 import dbconverter.contants.PostgreSQLConstants;
 import dbconverter.datatypes.TableColumn;
 import dbconverter.datatypes.TableRecord;
+import java.sql.SQLException;
 
 /**
  * Class that represents a writer to target database - PostgreSQL
@@ -42,6 +43,16 @@ public class DBWriterPostgreSQL extends DBWriter {
 
     @Override
     public void flushTableRecords() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void createTablePrimaryKeys() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void createTableConstraints() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
