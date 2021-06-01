@@ -47,6 +47,11 @@ public class DBWriterPostgreSQL extends DBWriter {
     }
 
     @Override
+    public void createTableIndexes() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
     public void createTablePrimaryKeys() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

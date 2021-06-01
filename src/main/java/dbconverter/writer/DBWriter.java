@@ -82,8 +82,11 @@ public abstract class DBWriter {
 
     public abstract void flushTableRecords() throws SQLException;
 
+    public abstract void createTableIndexes() throws SQLException;
+    
     public abstract void createTablePrimaryKeys() throws SQLException;
 
     public abstract void createTableConstraints() throws SQLException;
+
 
 }

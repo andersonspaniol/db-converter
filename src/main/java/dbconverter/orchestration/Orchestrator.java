@@ -39,6 +39,7 @@ public class Orchestrator {
             tableRecords.forEach(targetWriter::insertTableRecord);
             targetWriter.flushTableRecords();
             // Create tables constraints
+            targetWriter.createTableIndexes();
             targetWriter.createTablePrimaryKeys();
             targetWriter.createTableConstraints();
         }
