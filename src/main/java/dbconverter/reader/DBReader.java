@@ -50,6 +50,7 @@ public abstract class DBReader {
         PreparedStatement preparedStatement = getDbConnection().prepareStatement(command);
         ResultSet resultSet = preparedStatement.executeQuery();
         Stream<TableRecord> stream = StreamSupport.stream(new Spliterators.AbstractSpliterator<TableRecord>(Long.MAX_VALUE, Spliterator.ORDERED) {
+
             @Override
             public boolean tryAdvance(Consumer<? super TableRecord> action) {
                 try {
