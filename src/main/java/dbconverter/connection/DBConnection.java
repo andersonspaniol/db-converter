@@ -6,15 +6,14 @@ import java.sql.SQLException;
 
 /**
  * Abstract class to represent a database connection
- * 
+ *
  * @author Anderson Spaniol
  */
 public abstract class DBConnection {
-    
+
     private final Connection connection;
 
-    protected DBConnection(String hostname, String port, String database,
-                        String schema, String user, String password) throws SQLException {
+    protected DBConnection(String hostname, String port, String database, String schema, String user, String password) throws SQLException {
         String driver = getDriver();
         try {
             Class.forName(driver);
@@ -22,6 +21,7 @@ public abstract class DBConnection {
             throw new SQLException("Não conseguiu carregar o driver jdbc:" + driver, e);
         }
         connection = connect(hostname, port, database, user, password);
+        afterConnect(connection, database, schema);
     }
 
     public PreparedStatement prepareStatement(String cmd) throws SQLException {
@@ -30,6 +30,8 @@ public abstract class DBConnection {
 
     public abstract String getDriver();
 
-    public abstract Connection connect(String hostname, String port, String database, String user, String password) throws SQLException ;
-    
+    public abstract Connection connect(String hostname, String port, String database, String user, String password) throws SQLException;
+
+    protected abstract void afterConnect(Connection connection, String database, String schema) throws SQLException;
+
 }
