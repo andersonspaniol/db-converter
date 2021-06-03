@@ -78,9 +78,27 @@ public abstract class DBWriter {
 
     protected abstract String getSqlColumnTypeBinary(TableColumn tableColumn);
 
-    public abstract void insertTableRecord(TableRecord tableRecord);
+    public void insertTableRecord(TableStructure tableStructure, TableRecord tableRecord) {
+        String tableName = tableStructure.getTableName();
+        List<String> columnsNames = tableStructure.getColumns().stream().map(TableColumn::getColumnName).collect(Collectors.toList());
+        List<String> columnsSubstitutions = tableStructure.getColumns().stream().map(t -> "?").collect(Collectors.toList());
+        String cmd = "insert into " + tableName + " (" + String.join(", ", columnsNames) + ") values (" + String.join(", ", columnsSubstitutions) + ")";
+        try (var preparedStatement = getDbConnection().prepareStatement(cmd)) {
+            int index = 0;
+            for (String columnName : columnsNames) {
+                Object columnValue = tableRecord.getColumnValue(columnName);
+                index++;
+                preparedStatement.setObject(index, columnValue);
+            }
+            preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 
-    public abstract void flushTableRecords() throws SQLException;
+    public void flushTableRecords() throws SQLException {
+        getDbConnection().commit();
+    }
 
     public abstract void createTableIndexes() throws SQLException;
     

@@ -2,7 +2,6 @@ package dbconverter.writer;
 
 import dbconverter.connection.DBConnection;
 import dbconverter.datatypes.TableColumn;
-import dbconverter.datatypes.TableRecord;
 import java.sql.SQLException;
 
 /**
@@ -25,17 +24,7 @@ public class DBWriterMariaDB extends DBWriter {
     protected String getSqlColumnTypeBinary(TableColumn tableColumn) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public void insertTableRecord(TableRecord tableRecord) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void flushTableRecords() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
     @Override
     public void createTableIndexes() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
