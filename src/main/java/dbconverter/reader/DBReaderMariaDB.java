@@ -6,7 +6,6 @@ import dbconverter.datatypes.DataType;
 import dbconverter.datatypes.IndexColumn;
 import dbconverter.datatypes.TableColumn;
 import dbconverter.datatypes.TableIndex;
-import dbconverter.datatypes.TableRecord;
 import dbconverter.datatypes.TableStructure;
 import dbconverter.params.Parameters;
 import java.sql.PreparedStatement;
@@ -14,7 +13,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * Class that represents a reader to source database - MariaDB
@@ -170,18 +168,6 @@ public class DBReaderMariaDB extends DBReader {
 
     protected IndexColumn createIndexColumn(String columnName, int subpart) {
         return new IndexColumn(columnName, subpart);
-    }
-
-    @Override
-    public Stream<TableRecord> getTableRecords(String tableName) {
-//        final int recordsCount = 10;
-//        return Stream.generate(new Supplier<TableRecord>() {
-//            @Override
-//            public TableRecord get() {
-//                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//            }
-//        }).limit(recordsCount);
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

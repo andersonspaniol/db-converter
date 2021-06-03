@@ -35,7 +35,7 @@ public class Orchestrator {
             targetWriter.dropTableIfExists(tableStructure);
             targetWriter.createTable(tableStructure);
             // Copy table records
-            Stream<TableRecord> tableRecords = sourceReader.getTableRecords(tableName);
+            Stream<TableRecord> tableRecords = sourceReader.getTableRecords(tableStructure);
             tableRecords.forEach(targetWriter::insertTableRecord);
             targetWriter.flushTableRecords();
             // Create tables constraints
