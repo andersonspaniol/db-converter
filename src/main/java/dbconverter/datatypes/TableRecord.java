@@ -20,6 +20,10 @@ public class TableRecord {
         columnValues.put(columnName, columnsValue);
     }
 
+    public Object getColumnValue(String columnName) {
+        return columnValues.get(columnName);
+    }
+
     @Override
     public String toString() {
         return "TableRecord{" + "columnValues=" + columnValues + '}';
