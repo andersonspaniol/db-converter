@@ -22,6 +22,7 @@ public abstract class DBConnection {
         }
         connection = connect(hostname, port, database, user, password);
         afterConnect(connection, database, schema);
+        connection.setAutoCommit(false);
     }
 
     public PreparedStatement prepareStatement(String cmd) throws SQLException {
@@ -33,5 +34,9 @@ public abstract class DBConnection {
     public abstract Connection connect(String hostname, String port, String database, String user, String password) throws SQLException;
 
     protected abstract void afterConnect(Connection connection, String database, String schema) throws SQLException;
+
+    public void commit() throws SQLException {
+        connection.commit();
+    }
 
 }
