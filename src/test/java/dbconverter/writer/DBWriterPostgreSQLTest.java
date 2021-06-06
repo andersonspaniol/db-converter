@@ -114,7 +114,7 @@ public class DBWriterPostgreSQLTest {
         tableIndex = new TableIndex("index_test", true, false);
         tableIndex.addColumn(new IndexColumn("column_1", 0));
         tableIndex.addColumn(new IndexColumn("column_2", 0));
-        expResult = "alter table table_test add constraint index_test primary key (column_1, column_2)";
+        expResult = "alter table table_test add constraint table_test_pk primary key (column_1, column_2)";
         result = instance.getSqlCreateIndex("table_test", tableIndex);
         assertEquals(expResult, result);
         // Create non-unique index

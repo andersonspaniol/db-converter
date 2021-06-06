@@ -119,7 +119,8 @@ public abstract class DBWriter {
             cmd.append("alter table ");
             cmd.append(tableName);
             cmd.append(" add constraint ");
-            cmd.append(index.getIndexName());
+            cmd.append(tableName);
+            cmd.append("_pk");
             cmd.append(" primary key");
         } else {
             if (index.isNonUnique()) {
