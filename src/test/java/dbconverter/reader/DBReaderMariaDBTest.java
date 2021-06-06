@@ -38,26 +38,6 @@ public class DBReaderMariaDBTest {
     }
 
     /**
-     * Test of getTableNames method, of class DBReaderMariaDB.
-     *
-     * @throws java.lang.Exception
-     */
-    @Test
-    public void testGetTableNames() throws Exception {
-        System.out.println("getTableNames");
-    }
-
-    /**
-     * Test of loadTableColumns method, of class DBReaderMariaDB.
-     *
-     * @throws java.lang.Exception
-     */
-    @Test
-    public void testLoadTableColumns() throws Exception {
-        System.out.println("loadTableColumns");
-    }
-
-    /**
      * Test of createTableColumn method, of class DBReaderMariaDB.
      *
      * @throws java.lang.Exception
@@ -123,16 +103,6 @@ public class DBReaderMariaDBTest {
     }
 
     /**
-     * Test of loadTableIndexes method, of class DBReaderMariaDB.
-     *
-     * @throws java.lang.Exception
-     */
-    @Test
-    public void testLoadTableIndexes() throws Exception {
-        System.out.println("loadTableIndexes");
-    }
-
-    /**
      * Test of createIndexColumn method, of class DBReaderMariaDB.
      */
     @Test
@@ -143,18 +113,10 @@ public class DBReaderMariaDBTest {
         DBReaderMariaDB instance = new DBReaderMariaDB(null);
         IndexColumn expResult;
         IndexColumn result;
-        // Test: Create os a single index column
+        // Test: Create a single index column
         expResult = new IndexColumn(columnName, subpart);
         result = instance.createIndexColumn(columnName, subpart);
         assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of getTableRecords method, of class DBReaderMariaDB.
-     */
-    @Test
-    public void testGetTableRecords() {
-        System.out.println("getTableRecords");
     }
 
 }
