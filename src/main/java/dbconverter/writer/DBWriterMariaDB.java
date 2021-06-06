@@ -1,8 +1,8 @@
 package dbconverter.writer;
 
 import dbconverter.connection.DBConnection;
+import dbconverter.datatypes.IndexColumn;
 import dbconverter.datatypes.TableColumn;
-import java.sql.SQLException;
 
 /**
  * Class that represents a writer to target database - MariaDB
@@ -24,19 +24,9 @@ public class DBWriterMariaDB extends DBWriter {
     protected String getSqlColumnTypeBinary(TableColumn tableColumn) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    @Override
-    public void createTableIndexes() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
-    public void createTablePrimaryKeys() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void createTableConstraints() throws SQLException {
+    protected String getSqlColumnIndex(IndexColumn indexColumn) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

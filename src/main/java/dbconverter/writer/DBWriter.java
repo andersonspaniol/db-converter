@@ -1,7 +1,9 @@
 package dbconverter.writer;
 
 import dbconverter.connection.DBConnection;
+import dbconverter.datatypes.IndexColumn;
 import dbconverter.datatypes.TableColumn;
+import dbconverter.datatypes.TableIndex;
 import dbconverter.datatypes.TableRecord;
 import dbconverter.datatypes.TableStructure;
 import java.sql.SQLException;
@@ -100,11 +102,45 @@ public abstract class DBWriter {
         getDbConnection().commit();
     }
 
-    public abstract void createTableIndexes() throws SQLException;
+    public void createTableIndexes(TableStructure tableStructure) throws SQLException {
+        String tableName = tableStructure.getTableName();
+        List<TableIndex> indexes = tableStructure.getIndexes();
+        for (TableIndex index : indexes) {
+            var cmd = getSqlCreateIndex(tableName, index);
+            try (var preparedStatement = getDbConnection().prepareStatement(cmd)) {
+                preparedStatement.executeUpdate();
+            }
+        }
+    }
+
+    protected String getSqlCreateIndex(String tableName, TableIndex index) {
+        StringBuilder cmd = new StringBuilder();
+        if (index.isPrimaryKey()) {
+            cmd.append("alter table ");
+            cmd.append(tableName);
+            cmd.append(" add constraint ");
+            cmd.append(index.getIndexName());
+            cmd.append(" primary key");
+        } else {
+            if (index.isNonUnique()) {
+                cmd.append("create index ");
+            } else {
+                cmd.append("create unique index ");
+            }
+            cmd.append(index.getIndexName());
+            cmd.append(" on ");
+            cmd.append(tableName);
+        }
+        cmd.append(" (");
+        String columns = index.getColumns()
+                              .stream()
+                              .map(t -> getSqlColumnIndex(t))
+                              .collect(Collectors.joining(", "));
+        cmd.append(columns);
+        cmd.append(")");
+        return cmd.toString();
+    }
+
+    protected abstract String getSqlColumnIndex(IndexColumn indexColumn);
     
-    public abstract void createTablePrimaryKeys() throws SQLException;
-
-    public abstract void createTableConstraints() throws SQLException;
-
-
 }

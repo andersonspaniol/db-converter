@@ -38,10 +38,8 @@ public class Orchestrator {
             Stream<TableRecord> tableRecords = sourceReader.getTableRecords(tableStructure);
             tableRecords.forEach(tableRecord -> targetWriter.insertTableRecord(tableStructure, tableRecord));
             targetWriter.flushTableRecords();
-            // Create tables constraints
-            targetWriter.createTableIndexes();
-            targetWriter.createTablePrimaryKeys();
-            targetWriter.createTableConstraints();
+            // Create tables indexes
+            targetWriter.createTableIndexes(tableStructure);
         }
     }
 
