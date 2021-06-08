@@ -10,5 +10,6 @@ public class PostgreSQLConstants {
     public static final int LENGTH_SMALLINT = 4;
     public static final int LENGTH_INTEGER = 9;
     public static final int LENGTH_BIGINT = 18;
+    public static final int LENGTH_BYTEA = 1073741824;
 
 }

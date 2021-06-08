@@ -1,6 +1,10 @@
 package dbconverter.reader;
 
 import dbconverter.connection.DBConnection;
+import dbconverter.contants.MariaDBConstants;
+import dbconverter.contants.PostgreSQLConstants;
+import dbconverter.datatypes.DataType;
+import dbconverter.datatypes.TableColumn;
 import dbconverter.datatypes.TableStructure;
 import dbconverter.params.Parameters;
 import java.sql.PreparedStatement;
@@ -38,10 +42,82 @@ public class DBReaderPostgreSQL extends DBReader {
     }
 
     @Override
-    protected void loadTableColumns(TableStructure tableStructure) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    protected void loadTableColumns(TableStructure tableStructure) throws SQLException {
+        String schema = Parameters.def().getSourceSchema();
+        String tableName = tableStructure.getTableName();
+        String cmd = "select column_name, data_type, character_maximum_length, numeric_precision, numeric_scale " +
+                     "from information_schema.columns " +
+                     "where table_schema = ? and table_name = ?";
+        try (PreparedStatement preparedStatement = getDbConnection().prepareStatement(cmd)) {
+            preparedStatement.setString(1, schema);
+            preparedStatement.setString(2, tableName);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    String columnName = resultSet.getString(1);
+                    String dataType = resultSet.getString(2);
+                    int characterMaximumLength = resultSet.getInt(3);
+                    int numericPrecision = resultSet.getInt(4);
+                    int numericScale = resultSet.getInt(5);
+                    TableColumn tableColumn = createTableColumn(columnName, dataType, characterMaximumLength, numericPrecision, numericScale);
+                    tableStructure.addColumn(tableColumn);
+                }
+            }
+        }
     }
 
+    protected TableColumn createTableColumn(String columnName, String dataTypeStr, int characterMaximumLength, int numericPrecision, int numericScale) throws SQLException {
+        DataType dataType = null;
+        int lenght = -1;
+        int scale = 0;
+        switch (dataTypeStr) {
+            case "character":
+                dataType = DataType.CHAR;
+                break;
+            case "character varying":
+                dataType = DataType.VARCHAR;
+                break;
+            case "numeric":
+                dataType = DataType.DECIMAL;
+                break;
+            case "smallint":
+                dataType = DataType.INTEGER;
+                lenght = PostgreSQLConstants.LENGTH_SMALLINT;
+                break;
+            case "integer":
+                dataType = DataType.INTEGER;
+                lenght = PostgreSQLConstants.LENGTH_INTEGER;
+                break;
+            case "bigint":
+                dataType = DataType.INTEGER;
+                lenght = PostgreSQLConstants.LENGTH_BIGINT;
+                break;
+            case "date":
+                dataType = DataType.DATE;
+                lenght = 0;
+                break;
+            case "bytea":
+                dataType = DataType.BINARY;
+                lenght = PostgreSQLConstants.LENGTH_BYTEA;
+                break;
+            default:
+                throw new SQLException("Unknown data! Column name: " + columnName);
+        }
+        if (dataType == DataType.CHAR || dataType == DataType.VARCHAR) {
+            lenght = characterMaximumLength;
+        }
+        if (dataType == DataType.DECIMAL) {
+            lenght = numericPrecision;
+            scale = numericScale;
+            if (scale == 0) {
+                dataType = DataType.INTEGER;
+            }
+        }
+        if (lenght < 0) {
+            throw new SQLException("Undefined length! Column name: " + columnName);
+        }
+        return new TableColumn(columnName, dataType, lenght, scale);
+    }
+    
     @Override
     protected void loadTableIndexes(TableStructure tableStructure) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
