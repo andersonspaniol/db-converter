@@ -1,10 +1,11 @@
 package dbconverter.reader;
 
 import dbconverter.connection.DBConnection;
-import dbconverter.contants.MariaDBConstants;
 import dbconverter.contants.PostgreSQLConstants;
 import dbconverter.datatypes.DataType;
+import dbconverter.datatypes.IndexColumn;
 import dbconverter.datatypes.TableColumn;
+import dbconverter.datatypes.TableIndex;
 import dbconverter.datatypes.TableStructure;
 import dbconverter.params.Parameters;
 import java.sql.PreparedStatement;
@@ -119,8 +120,39 @@ public class DBReaderPostgreSQL extends DBReader {
     }
     
     @Override
-    protected void loadTableIndexes(TableStructure tableStructure) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    protected void loadTableIndexes(TableStructure tableStructure) throws SQLException {
+        String schema = Parameters.def().getSourceSchema();
+        String tableName = tableStructure.getTableName();
+        String cmd = "select indexname, indexdef "
+                + "from pg_indexes "
+                + "where schemaname = ? and tablename = ? "
+                + "order by tablename, indexname";
+        try (PreparedStatement preparedStatement = getDbConnection().prepareStatement(cmd)) {
+            preparedStatement.setString(1, schema);
+            preparedStatement.setString(2, tableName);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    String indexName = resultSet.getString(1);
+                    String cmdCreateIndex = resultSet.getString(2).toLowerCase();
+                    boolean primaryKey = indexName.endsWith("_pk");
+                    boolean nonUnique = cmdCreateIndex.startsWith("create index");
+                    int parenthesesOpeningPosition = cmdCreateIndex.indexOf("(");
+                    int parenthesesClosingPosition = cmdCreateIndex.indexOf(")");
+                    String columnList = cmdCreateIndex.substring(parenthesesOpeningPosition + 1, parenthesesClosingPosition);
+                    String[] columns = columnList.split(", ");
+                    TableIndex tableIndex = new TableIndex(indexName, primaryKey, nonUnique);
+                    tableStructure.addIndex(tableIndex);
+                    for (String columnName : columns) {
+                        IndexColumn indexColumn = createIndexColumn(columnName);
+                        tableIndex.addColumn(indexColumn);
+                    }
+                }
+            }
+        }
     }
 
+    protected IndexColumn createIndexColumn(String columnName) {
+        return new IndexColumn(columnName, 0);
+    }
+    
 }
