@@ -123,10 +123,10 @@ public class DBReaderPostgreSQL extends DBReader {
     protected void loadTableIndexes(TableStructure tableStructure) throws SQLException {
         String schema = Parameters.def().getSourceSchema();
         String tableName = tableStructure.getTableName();
-        String cmd = "select indexname, indexdef "
-                + "from pg_indexes "
-                + "where schemaname = ? and tablename = ? "
-                + "order by tablename, indexname";
+        String cmd = "select indexname, indexdef " +
+                  "from pg_indexes " +
+                  "where schemaname = ? and tablename = ? " +
+                  "order by tablename, indexname";
         try (PreparedStatement preparedStatement = getDbConnection().prepareStatement(cmd)) {
             preparedStatement.setString(1, schema);
             preparedStatement.setString(2, tableName);
