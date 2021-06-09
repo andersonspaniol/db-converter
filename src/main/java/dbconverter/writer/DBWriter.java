@@ -98,7 +98,7 @@ public abstract class DBWriter {
         }
     }
 
-    public void flushTableRecords() throws SQLException {
+    public void flushTableChanges() throws SQLException {
         getDbConnection().commit();
     }
 

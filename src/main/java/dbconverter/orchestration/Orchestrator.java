@@ -37,9 +37,10 @@ public class Orchestrator {
             // Copy table records
             Stream<TableRecord> tableRecords = sourceReader.getTableRecords(tableStructure);
             tableRecords.forEach(tableRecord -> targetWriter.insertTableRecord(tableStructure, tableRecord));
-            targetWriter.flushTableRecords();
+            targetWriter.flushTableChanges();
             // Create tables indexes
             targetWriter.createTableIndexes(tableStructure);
+            targetWriter.flushTableChanges();
         }
     }
 
