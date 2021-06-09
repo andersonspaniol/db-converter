@@ -68,7 +68,7 @@ public class Parameters {
                 if (arg.startsWith("--target-user=")) {
                     targetUser = arg.split("=")[1];
                 }
-                if (arg.startsWith("--target-passsword=")) {
+                if (arg.startsWith("--target-password=")) {
                     targetPassword = arg.split("=")[1];
                 }
             }
