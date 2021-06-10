@@ -162,15 +162,11 @@ public class DBReaderMariaDB extends DBReader {
                         tableIndex = new TableIndex(indexName, primaryKey, nonUnique);
                         tableStructure.addIndex(tableIndex);
                     }
-                    IndexColumn indexColumn = createIndexColumn(columnName, subpart);
+                    IndexColumn indexColumn = createIndexColumn(tableStructure, columnName, subpart);
                     tableIndex.addColumn(indexColumn);
                 }
             }
         }
-    }
-
-    protected IndexColumn createIndexColumn(String columnName, int subpart) {
-        return new IndexColumn(columnName, subpart);
     }
 
 }
