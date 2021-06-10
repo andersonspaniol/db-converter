@@ -1,6 +1,7 @@
 package dbconverter.writer;
 
 import dbconverter.connection.DBConnection;
+import dbconverter.contants.MariaDBConstants;
 import dbconverter.datatypes.IndexColumn;
 import dbconverter.datatypes.TableColumn;
 
@@ -17,12 +18,34 @@ public class DBWriterMariaDB extends DBWriter {
 
     @Override
     protected String getSqlColumnTypeInteger(TableColumn tableColumn) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        long length = tableColumn.getLenght();
+        if (length <= MariaDBConstants.LENGTH_TINYINT) {
+            return "tinyint";
+        } else if (length <= MariaDBConstants.LENGTH_SMALLINT) {
+            return "smallint";
+        } else if (length <= MariaDBConstants.LENGTH_MEDIUMINT) {
+            return "mediumint";
+        } else if (length <= MariaDBConstants.LENGTH_INT) {
+            return "int";
+        } else if (length <= MariaDBConstants.LENGTH_BIGINT) {
+            return "bigint";
+        } else {
+            return "numeric(" + length + ")";
+        }
     }
 
     @Override
     protected String getSqlColumnTypeBinary(TableColumn tableColumn) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        long length = tableColumn.getLenght();
+        if (length <= MariaDBConstants.LENGTH_TINYBLOB) {
+            return "tinyblob";
+        } else if (length <= MariaDBConstants.LENGTH_BLOB) {
+            return "blob";
+        } else if (length <= MariaDBConstants.LENGTH_MEDIUMBLOB) {
+            return "mediumblob";
+        } else {
+            return "longblob";
+        }
     }
 
     @Override

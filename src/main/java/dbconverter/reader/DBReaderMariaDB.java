@@ -113,6 +113,9 @@ public class DBReaderMariaDB extends DBReader {
             case "blob":
                 dataType = DataType.BINARY;
                 break;
+            case "mediumblob":
+                dataType = DataType.BINARY;
+                break;
             case "longblob":
                 dataType = DataType.BINARY;
                 break;
