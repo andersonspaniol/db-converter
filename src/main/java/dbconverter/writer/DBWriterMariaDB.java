@@ -50,6 +50,14 @@ public class DBWriterMariaDB extends DBWriter {
 
     @Override
     protected String getSqlColumnIndex(IndexColumn indexColumn) {
+
+//        if (tableColumn.getTipoCampoBD() == TipoCampoBD.BINARY) {
+//            return tableColumn.getNomeBD() + "(" + tableColumn.getTamanho() + ")";
+//        } else {
+//            return tableColumn.getNomeBD();
+//        }
+
+
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

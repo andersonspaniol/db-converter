@@ -37,7 +37,7 @@ public class DBWriterPostgreSQL extends DBWriter {
 
     @Override
     protected String getSqlColumnIndex(IndexColumn indexColumn) {
-        return indexColumn.getColumnName();
+        return indexColumn.getTableColumn().getColumnName();
     }
 
 }

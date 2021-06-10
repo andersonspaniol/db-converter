@@ -143,7 +143,7 @@ public class DBReaderPostgreSQL extends DBReader {
                     TableIndex tableIndex = new TableIndex(indexName, primaryKey, nonUnique);
                     tableStructure.addIndex(tableIndex);
                     for (String columnName : columns) {
-                        IndexColumn indexColumn = createIndexColumn(columnName);
+                        IndexColumn indexColumn = createIndexColumn(tableStructure, columnName, 0);
                         tableIndex.addColumn(indexColumn);
                     }
                 }
@@ -151,8 +151,4 @@ public class DBReaderPostgreSQL extends DBReader {
         }
     }
 
-    protected IndexColumn createIndexColumn(String columnName) {
-        return new IndexColumn(columnName, 0);
-    }
-    
 }

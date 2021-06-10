@@ -9,16 +9,16 @@ import java.util.Objects;
  */
 public class IndexColumn {
 
-    private final String columnName;
+    private final TableColumn tableColumn;
     private final int subpart;
 
-    public IndexColumn(String columnName, int subpart) {
-        this.columnName = columnName;
+    public IndexColumn(TableColumn tableColumn, int subpart) {
+        this.tableColumn = tableColumn;
         this.subpart = subpart;
     }
 
-    public String getColumnName() {
-        return columnName;
+    public TableColumn getTableColumn() {
+        return tableColumn;
     }
 
     public int getSubpart() {
@@ -27,9 +27,9 @@ public class IndexColumn {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 59 * hash + Objects.hashCode(this.columnName);
-        hash = 59 * hash + this.subpart;
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.tableColumn);
+        hash = 89 * hash + this.subpart;
         return hash;
     }
 
@@ -45,10 +45,7 @@ public class IndexColumn {
             return false;
         }
         final IndexColumn other = (IndexColumn) obj;
-        if (this.subpart != other.subpart) {
-            return false;
-        }
-        if (!Objects.equals(this.columnName, other.columnName)) {
+        if (!Objects.equals(this.tableColumn, other.tableColumn)) {
             return false;
         }
         return true;
@@ -56,7 +53,7 @@ public class IndexColumn {
 
     @Override
     public String toString() {
-        return "IndexColumn{" + "columnName=" + columnName + ", subpart=" + subpart + '}';
+        return "IndexColumn{" + "tableColumn=" + tableColumn + ", subpart=" + subpart + '}';
     }
 
 }

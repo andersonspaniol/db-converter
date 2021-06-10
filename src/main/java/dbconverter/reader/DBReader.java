@@ -1,6 +1,7 @@
 package dbconverter.reader;
 
 import dbconverter.connection.DBConnection;
+import dbconverter.datatypes.IndexColumn;
 import dbconverter.datatypes.TableColumn;
 import dbconverter.datatypes.TableRecord;
 import dbconverter.datatypes.TableStructure;
@@ -8,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.Spliterator;
 import java.util.Spliterators;
 import java.util.function.Consumer;
@@ -44,6 +46,15 @@ public abstract class DBReader {
 
     protected abstract void loadTableIndexes(TableStructure tableStructure) throws SQLException;
 
+    protected IndexColumn createIndexColumn(TableStructure tableStructure, String columnName, int subpart) {
+        Optional<TableColumn> findAny = tableStructure.getColumns()
+                                                      .stream()
+                                                      .filter(t -> t.getColumnName().equals(columnName))
+                                                      .findAny();
+        TableColumn tableColumn = findAny.get();
+        return new IndexColumn(tableColumn, subpart);
+    }
+    
     public Stream<TableRecord> getTableRecords(final TableStructure tableStructure) throws SQLException {
         String tableName = tableStructure.getTableName();
         String command = "select * from " + tableName;

@@ -5,6 +5,7 @@ import dbconverter.datatypes.DataType;
 import dbconverter.datatypes.IndexColumn;
 import dbconverter.datatypes.TableColumn;
 import dbconverter.datatypes.TableIndex;
+import dbconverter.datatypes.TableStructure;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -107,27 +108,29 @@ public class DBWriterPostgreSQLTest {
     public void testGetSqlCreateIndexIndex() {
         System.out.println("getSqlCreateIndex");
         DBWriterPostgreSQL instance = new DBWriterPostgreSQL(null);
+        TableColumn tableColumn1 = new TableColumn("column_1", DataType.INTEGER, 4, 0);
+        TableColumn tableColumn2 = new TableColumn("column_2", DataType.INTEGER, 4, 0);
         TableIndex tableIndex;
         String expResult;
         String result;
         // Create primary key
         tableIndex = new TableIndex("index_test", true, false);
-        tableIndex.addColumn(new IndexColumn("column_1", 0));
-        tableIndex.addColumn(new IndexColumn("column_2", 0));
+        tableIndex.addColumn(new IndexColumn(tableColumn1, 0));
+        tableIndex.addColumn(new IndexColumn(tableColumn2, 0));
         expResult = "alter table table_test add constraint table_test_pk primary key (column_1, column_2)";
         result = instance.getSqlCreateIndex("table_test", tableIndex);
         assertEquals(expResult, result);
         // Create non-unique index
         tableIndex = new TableIndex("index_test", false, true);
-        tableIndex.addColumn(new IndexColumn("column_1", 0));
-        tableIndex.addColumn(new IndexColumn("column_2", 0));
+        tableIndex.addColumn(new IndexColumn(tableColumn1, 0));
+        tableIndex.addColumn(new IndexColumn(tableColumn2, 0));
         expResult = "create index index_test on table_test (column_1, column_2)";
         result = instance.getSqlCreateIndex("table_test", tableIndex);
         assertEquals(expResult, result);
         // Create unique index
         tableIndex = new TableIndex("index_test", false, false);
-        tableIndex.addColumn(new IndexColumn("column_1", 0));
-        tableIndex.addColumn(new IndexColumn("column_2", 0));
+        tableIndex.addColumn(new IndexColumn(tableColumn1, 0));
+        tableIndex.addColumn(new IndexColumn(tableColumn2, 0));
         expResult = "create unique index index_test on table_test (column_1, column_2)";
         result = instance.getSqlCreateIndex("table_test", tableIndex);
         assertEquals(expResult, result);

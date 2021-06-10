@@ -4,6 +4,7 @@ import dbconverter.contants.MariaDBConstants;
 import dbconverter.datatypes.DataType;
 import dbconverter.datatypes.IndexColumn;
 import dbconverter.datatypes.TableColumn;
+import dbconverter.datatypes.TableStructure;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -113,13 +114,16 @@ public class DBReaderMariaDBTest {
     public void testCreateIndexColumn() {
         System.out.println("createIndexColumn");
         String columnName = "test_123";
+        TableStructure tableStructure = new TableStructure("table_test");
+        TableColumn tableColumn = new TableColumn(columnName, DataType.INTEGER, 4, 0);
+        tableStructure.addColumn(tableColumn);
         int subpart = 12;
         DBReaderMariaDB instance = new DBReaderMariaDB(null);
         IndexColumn expResult;
         IndexColumn result;
         // Test: Create a single index column
-        expResult = new IndexColumn(columnName, subpart);
-        result = instance.createIndexColumn(columnName, subpart);
+        expResult = new IndexColumn(tableColumn, subpart);
+        result = instance.createIndexColumn(tableStructure, columnName, subpart);
         assertEquals(expResult, result);
     }
 
