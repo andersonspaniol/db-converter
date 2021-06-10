@@ -96,6 +96,10 @@ public class DBReaderMariaDBTest {
         expResult = new TableColumn("test_123", DataType.BINARY, 50, 0);
         result = instance.createTableColumn("test_123", "blob", 50, 0, 0);
         assertEquals(expResult, result);
+        // Test: blob
+        expResult = new TableColumn("test_123", DataType.BINARY, 50, 0);
+        result = instance.createTableColumn("test_123", "mediumblob", 50, 0, 0);
+        assertEquals(expResult, result);
         // Test: longblob
         expResult = new TableColumn("test_123", DataType.BINARY, 50, 0);
         result = instance.createTableColumn("test_123", "longblob", 50, 0, 0);
