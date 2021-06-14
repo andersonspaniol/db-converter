@@ -5,7 +5,6 @@ import dbconverter.datatypes.DataType;
 import dbconverter.datatypes.IndexColumn;
 import dbconverter.datatypes.TableColumn;
 import dbconverter.datatypes.TableIndex;
-import dbconverter.datatypes.TableStructure;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,52 +49,52 @@ public class DBWriterPostgreSQLTest {
         String expResult;
         String result;
         // Test: char(3)
-        tableColumn = new TableColumn("test_123", DataType.CHAR, 3, 0);
+        tableColumn = new TableColumn("test_123", DataType.CHAR, 3, 0, false, null);
         expResult = "test_123 char(3)";
         result = instance.getSqlCreateColumn(tableColumn);
         assertEquals(expResult, result);
         // Test: varchar(32)
-        tableColumn = new TableColumn("test_123", DataType.VARCHAR, 32, 0);
+        tableColumn = new TableColumn("test_123", DataType.VARCHAR, 32, 0, false, null);
         expResult = "test_123 varchar(32)";
         result = instance.getSqlCreateColumn(tableColumn);
         assertEquals(expResult, result);
         // Test: numeric(4)
-        tableColumn = new TableColumn("test_123", DataType.DECIMAL, 4, 0);
+        tableColumn = new TableColumn("test_123", DataType.DECIMAL, 4, 0, false, null);
         expResult = "test_123 numeric(4)";
         result = instance.getSqlCreateColumn(tableColumn);
         assertEquals(expResult, result);
         // Test: numeric(5, 2)
-        tableColumn = new TableColumn("test_123", DataType.DECIMAL, 5, 2);
+        tableColumn = new TableColumn("test_123", DataType.DECIMAL, 5, 2, false, null);
         expResult = "test_123 numeric(5, 2)";
         result = instance.getSqlCreateColumn(tableColumn);
         assertEquals(expResult, result);
         // Test: smallint
-        tableColumn = new TableColumn("test_123", DataType.INTEGER, PostgreSQLConstants.LENGTH_SMALLINT, 0);
+        tableColumn = new TableColumn("test_123", DataType.INTEGER, PostgreSQLConstants.LENGTH_SMALLINT, 0, false, null);
         expResult = "test_123 smallint";
         result = instance.getSqlCreateColumn(tableColumn);
         assertEquals(expResult, result);
         // Test: integer
-        tableColumn = new TableColumn("test_123", DataType.INTEGER, PostgreSQLConstants.LENGTH_INTEGER, 0);
+        tableColumn = new TableColumn("test_123", DataType.INTEGER, PostgreSQLConstants.LENGTH_INTEGER, 0, false, null);
         expResult = "test_123 integer";
         result = instance.getSqlCreateColumn(tableColumn);
         assertEquals(expResult, result);
         // Test: bigint
-        tableColumn = new TableColumn("test_123", DataType.INTEGER, PostgreSQLConstants.LENGTH_BIGINT, 0);
+        tableColumn = new TableColumn("test_123", DataType.INTEGER, PostgreSQLConstants.LENGTH_BIGINT, 0, false, null);
         expResult = "test_123 bigint";
         result = instance.getSqlCreateColumn(tableColumn);
         assertEquals(expResult, result);
         // Test: decimal(20)
-        tableColumn = new TableColumn("test_123", DataType.INTEGER, 20, 0);
+        tableColumn = new TableColumn("test_123", DataType.INTEGER, 20, 0, false, null);
         expResult = "test_123 numeric(20)";
         result = instance.getSqlCreateColumn(tableColumn);
         assertEquals(expResult, result);
         // Test: date
-        tableColumn = new TableColumn("test_123", DataType.DATE, 0, 0);
+        tableColumn = new TableColumn("test_123", DataType.DATE, 0, 0, false, null);
         expResult = "test_123 date";
         result = instance.getSqlCreateColumn(tableColumn);
         assertEquals(expResult, result);
         // Test: bytea
-        tableColumn = new TableColumn("test_123", DataType.BINARY, 100, 0);
+        tableColumn = new TableColumn("test_123", DataType.BINARY, 100, 0, false, null);
         expResult = "test_123 bytea";
         result = instance.getSqlCreateColumn(tableColumn);
         assertEquals(expResult, result);
@@ -108,8 +107,8 @@ public class DBWriterPostgreSQLTest {
     public void testGetSqlCreateIndexIndex() {
         System.out.println("getSqlCreateIndex");
         DBWriterPostgreSQL instance = new DBWriterPostgreSQL(null);
-        TableColumn tableColumn1 = new TableColumn("column_1", DataType.INTEGER, 4, 0);
-        TableColumn tableColumn2 = new TableColumn("column_2", DataType.INTEGER, 4, 0);
+        TableColumn tableColumn1 = new TableColumn("column_1", DataType.INTEGER, 4, 0, false, null);
+        TableColumn tableColumn2 = new TableColumn("column_2", DataType.INTEGER, 4, 0, false, null);
         TableIndex tableIndex;
         String expResult;
         String result;

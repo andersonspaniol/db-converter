@@ -50,60 +50,60 @@ public class DBReaderMariaDBTest {
         TableColumn expResult;
         TableColumn result;
         // Test: char(3)
-        expResult = new TableColumn("test_123", DataType.CHAR, 3, 0);
-        result = instance.createTableColumn("test_123", "char", 3, 0, 0);
+        expResult = new TableColumn("test_123", DataType.CHAR, 3, 0, false, null);
+        result = instance.createTableColumn("test_123", "char", 3, 0, 0, false, null);
         assertEquals(expResult, result);
         // Test: varchar(32)
-        expResult = new TableColumn("test_123", DataType.VARCHAR, 32, 0);
-        result = instance.createTableColumn("test_123", "varchar", 32, 0, 0);
+        expResult = new TableColumn("test_123", DataType.VARCHAR, 32, 0, false, null);
+        result = instance.createTableColumn("test_123", "varchar", 32, 0, 0, false, null);
         assertEquals(expResult, result);
         // Test: decimal(4)
-        expResult = new TableColumn("test_123", DataType.INTEGER, 4, 0);
-        result = instance.createTableColumn("test_123", "decimal", 0, 4, 0);
+        expResult = new TableColumn("test_123", DataType.INTEGER, 4, 0, false, null);
+        result = instance.createTableColumn("test_123", "decimal", 0, 4, 0, false, null);
         assertEquals(expResult, result);
         // Test: decimal(5, 2)
-        expResult = new TableColumn("test_123", DataType.DECIMAL, 5, 2);
-        result = instance.createTableColumn("test_123", "decimal", 0, 5, 2);
+        expResult = new TableColumn("test_123", DataType.DECIMAL, 5, 2, false, null);
+        result = instance.createTableColumn("test_123", "decimal", 0, 5, 2, false, null);
         assertEquals(expResult, result);
         // Test: tinyint
-        expResult = new TableColumn("test_123", DataType.INTEGER, MariaDBConstants.LENGTH_TINYINT, 0);
-        result = instance.createTableColumn("test_123", "tinyint", 0, 0, 0);
+        expResult = new TableColumn("test_123", DataType.INTEGER, MariaDBConstants.LENGTH_TINYINT, 0, false, null);
+        result = instance.createTableColumn("test_123", "tinyint", 0, 0, 0, false, null);
         assertEquals(expResult, result);
         // Test: smallint
-        expResult = new TableColumn("test_123", DataType.INTEGER, MariaDBConstants.LENGTH_SMALLINT, 0);
-        result = instance.createTableColumn("test_123", "smallint", 0, 0, 0);
+        expResult = new TableColumn("test_123", DataType.INTEGER, MariaDBConstants.LENGTH_SMALLINT, 0, false, null);
+        result = instance.createTableColumn("test_123", "smallint", 0, 0, 0, false, null);
         assertEquals(expResult, result);
         // Test: mediumint
-        expResult = new TableColumn("test_123", DataType.INTEGER, MariaDBConstants.LENGTH_MEDIUMINT, 0);
-        result = instance.createTableColumn("test_123", "mediumint", 0, 0, 0);
+        expResult = new TableColumn("test_123", DataType.INTEGER, MariaDBConstants.LENGTH_MEDIUMINT, 0, false, null);
+        result = instance.createTableColumn("test_123", "mediumint", 0, 0, 0, false, null);
         assertEquals(expResult, result);
         // Test: int
-        expResult = new TableColumn("test_123", DataType.INTEGER, MariaDBConstants.LENGTH_INT, 0);
-        result = instance.createTableColumn("test_123", "int", 0, 0, 0);
+        expResult = new TableColumn("test_123", DataType.INTEGER, MariaDBConstants.LENGTH_INT, 0, false, null);
+        result = instance.createTableColumn("test_123", "int", 0, 0, 0, false, null);
         assertEquals(expResult, result);
         // Test: bigint
-        expResult = new TableColumn("test_123", DataType.INTEGER, MariaDBConstants.LENGTH_BIGINT, 0);
-        result = instance.createTableColumn("test_123", "bigint", 0, 0, 0);
+        expResult = new TableColumn("test_123", DataType.INTEGER, MariaDBConstants.LENGTH_BIGINT, 0, false, null);
+        result = instance.createTableColumn("test_123", "bigint", 0, 0, 0, false, null);
         assertEquals(expResult, result);
         // Test: date
-        expResult = new TableColumn("test_123", DataType.DATE, 0, 0);
-        result = instance.createTableColumn("test_123", "date", 0, 0, 0);
+        expResult = new TableColumn("test_123", DataType.DATE, 0, 0, false, null);
+        result = instance.createTableColumn("test_123", "date", 0, 0, 0, false, null);
         assertEquals(expResult, result);
         // Test: tinyblob
-        expResult = new TableColumn("test_123", DataType.BINARY, 50, 0);
-        result = instance.createTableColumn("test_123", "tinyblob", 50, 0, 0);
+        expResult = new TableColumn("test_123", DataType.BINARY, 50, 0, false, null);
+        result = instance.createTableColumn("test_123", "tinyblob", 50, 0, 0, false, null);
         assertEquals(expResult, result);
         // Test: blob
-        expResult = new TableColumn("test_123", DataType.BINARY, 50, 0);
-        result = instance.createTableColumn("test_123", "blob", 50, 0, 0);
+        expResult = new TableColumn("test_123", DataType.BINARY, 50, 0, false, null);
+        result = instance.createTableColumn("test_123", "blob", 50, 0, 0, false, null);
         assertEquals(expResult, result);
         // Test: blob
-        expResult = new TableColumn("test_123", DataType.BINARY, 50, 0);
-        result = instance.createTableColumn("test_123", "mediumblob", 50, 0, 0);
+        expResult = new TableColumn("test_123", DataType.BINARY, 50, 0, false, null);
+        result = instance.createTableColumn("test_123", "mediumblob", 50, 0, 0, false, null);
         assertEquals(expResult, result);
         // Test: longblob
-        expResult = new TableColumn("test_123", DataType.BINARY, 50, 0);
-        result = instance.createTableColumn("test_123", "longblob", 50, 0, 0);
+        expResult = new TableColumn("test_123", DataType.BINARY, 50, 0, false, null);
+        result = instance.createTableColumn("test_123", "longblob", 50, 0, 0, false, null);
         assertEquals(expResult, result);
     }
 
@@ -115,7 +115,7 @@ public class DBReaderMariaDBTest {
         System.out.println("createIndexColumn");
         String columnName = "test_123";
         TableStructure tableStructure = new TableStructure("table_test");
-        TableColumn tableColumn = new TableColumn(columnName, DataType.INTEGER, 4, 0);
+        TableColumn tableColumn = new TableColumn(columnName, DataType.INTEGER, 4, 0, false, null);
         tableStructure.addColumn(tableColumn);
         int subpart = 12;
         DBReaderMariaDB instance = new DBReaderMariaDB(null);
