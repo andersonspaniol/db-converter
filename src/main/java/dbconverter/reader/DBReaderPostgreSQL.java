@@ -46,7 +46,7 @@ public class DBReaderPostgreSQL extends DBReader {
     protected void loadTableColumns(TableStructure tableStructure) throws SQLException {
         String schema = Parameters.def().getSourceSchema();
         String tableName = tableStructure.getTableName();
-        String cmd = "select column_name, data_type, character_maximum_length, numeric_precision, numeric_scale, is_nullable, column_default " +
+        String cmd = "select column_name, data_type, character_maximum_length, numeric_precision, numeric_scale, is_nullable " +
                      "from information_schema.columns " +
                      "where table_schema = ? and table_name = ?";
         try (PreparedStatement preparedStatement = getDbConnection().prepareStatement(cmd)) {
@@ -60,15 +60,14 @@ public class DBReaderPostgreSQL extends DBReader {
                     int numericPrecision = resultSet.getInt(4);
                     int numericScale = resultSet.getInt(5);
                     boolean nullable = resultSet.getBoolean(6);
-                    Object defaultValue = resultSet.getObject(7);
-                    TableColumn tableColumn = createTableColumn(columnName, dataType, characterMaximumLength, numericPrecision, numericScale, nullable, defaultValue);
+                    TableColumn tableColumn = createTableColumn(columnName, dataType, characterMaximumLength, numericPrecision, numericScale, nullable);
                     tableStructure.addColumn(tableColumn);
                 }
             }
         }
     }
 
-    protected TableColumn createTableColumn(String columnName, String dataTypeStr, int characterMaximumLength, int numericPrecision, int numericScale, boolean nullable, Object defaultValue) throws SQLException {
+    protected TableColumn createTableColumn(String columnName, String dataTypeStr, int characterMaximumLength, int numericPrecision, int numericScale, boolean nullable) throws SQLException {
         DataType dataType = null;
         int lenght = -1;
         int scale = 0;
@@ -118,7 +117,7 @@ public class DBReaderPostgreSQL extends DBReader {
         if (lenght < 0) {
             throw new SQLException("Undefined length! Column name: " + columnName);
         }
-        return new TableColumn(columnName, dataType, lenght, scale, nullable, defaultValue);
+        return new TableColumn(columnName, dataType, lenght, scale, nullable);
     }
     
     @Override
