@@ -48,7 +48,14 @@ public abstract class DBWriter {
     }
     
     protected String getSqlCreateColumn(TableColumn tableColumn) {
-        return tableColumn.getColumnName() + " " + getSqlColumnType(tableColumn);
+        StringBuilder sb = new StringBuilder();
+        sb.append(tableColumn.getColumnName());
+        sb.append(" ");
+        sb.append(getSqlColumnType(tableColumn));
+        if (!tableColumn.isNullable()) {
+            sb.append(" not null");
+        }
+        return sb.toString();
     }
     
     private String getSqlColumnType(TableColumn tableColumn) {
