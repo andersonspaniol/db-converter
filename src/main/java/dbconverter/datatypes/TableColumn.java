@@ -11,11 +11,11 @@ public class TableColumn {
 
     private final String columnName;
     private final DataType dataType;
-    private final int lenght;
+    private final long lenght;
     private final int scale;
     private final boolean nullable;
 
-    public TableColumn(String columnName, DataType dataType, int lenght, int scale, boolean nullable) {
+    public TableColumn(String columnName, DataType dataType, long lenght, int scale, boolean nullable) {
         this.columnName = columnName;
         this.dataType = dataType;
         this.lenght = lenght;
@@ -31,7 +31,7 @@ public class TableColumn {
         return dataType;
     }
 
-    public int getLenght() {
+    public long getLenght() {
         return lenght;
     }
 
@@ -46,14 +46,14 @@ public class TableColumn {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 37 * hash + Objects.hashCode(this.columnName);
-        hash = 37 * hash + Objects.hashCode(this.dataType);
-        hash = 37 * hash + this.lenght;
-        hash = 37 * hash + this.scale;
-        hash = 37 * hash + (this.nullable ? 1 : 0);
+        hash = 23 * hash + Objects.hashCode(this.columnName);
+        hash = 23 * hash + Objects.hashCode(this.dataType);
+        hash = 23 * hash + (int) (this.lenght ^ (this.lenght >>> 32));
+        hash = 23 * hash + this.scale;
+        hash = 23 * hash + (this.nullable ? 1 : 0);
         return hash;
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
